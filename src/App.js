@@ -20,7 +20,7 @@ function App() {
     e.preventDefault()
     // console.log(form)
 
-    let  data = []
+    const  data = []
     const str = localStorage.getItem("DATA")
 
     if (str !== null) {
