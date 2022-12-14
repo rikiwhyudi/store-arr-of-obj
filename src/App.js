@@ -1,24 +1,67 @@
-import logo from './logo.svg';
-import './App.css';
+import { useState } from "react";
+import "./App.css";
 
 function App() {
+  const [form, setForm] = useState({
+    email: "",
+    password: "",
+    name: "",
+  });
+
+  const handleChange = (e) => {
+    setForm({
+      ...form,
+      [e.target.name]: e.target.value,
+    });
+    console.log(e.target.value);
+  };
+
+  const handleSubmit = (e) => {
+    e.preventDefault()
+    // console.log(form)
+
+    let  data = []
+    const str = localStorage.getItem("DATA")
+
+    if (str !== null) {
+      data = JSON.parse(str)
+      // localStorage.setItem(form)
+    }
+
+    data.push(form)
+    localStorage.setItem("DATA", JSON.stringify(data))
+  }
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <>
+      <div align="center" style={{margin: 50}}>
+        <form onSubmit={handleSubmit}>
+          <input
+            type="text"
+            placeholder="email"
+            name="email"
+            onChange={handleChange}
+          />
+          <br />
+          <input
+            type="password"
+            placeholder="password"
+            name="password"
+            onChange={handleChange}
+          />
+          <br />
+
+          <input
+            type="name"
+            placeholder="name"
+            name="name"
+            onChange={handleChange}
+          />
+          <br />
+        <button type="submit">submit</button>
+        </form>
+      </div>
+    </>
   );
 }
 
